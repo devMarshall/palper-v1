@@ -38,7 +38,12 @@
                         <div class="form-group row">
                             <label for="user_handle" class="col-md-4 col-form-label text-md-right">{{ __('User Handle') }}</label>
 
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                            </div>
+
                             <div class="col-md-6">
+
                                 <input id="user_handle" type="text" class="form-control{{ $errors->has('user_handle') ? ' is-invalid' : '' }}" name="user_handle"
                                     value="{{ old('user_handle') }}" required autofocus> @if($errors->has('user_handle'))
                                 <span class="invalid-feedback">
