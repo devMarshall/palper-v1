@@ -17,12 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'PagesController@index')->name('home')->middleware('auth');
 
-Route::get('/profile/my/main', 'PagesController@myProfile_main')->name('my-profile.main');
-Route::get('/profile/my/posts', 'PagesController@myProfile_myPosts')->name('my-profile.posts');
-Route::get('/profile/my/followers', 'PagesController@myProfile_Followers')->name('my-profile.followers');
-Route::get('/profile/my/following', 'PagesController@myProfile_Following')->name('my-profile.following');
-Route::get('/profile/my/brands', 'PagesController@myProfile_myBrands')->name('my-profile.brands');
-
-
+Route::get('/profile/my/main', 'PagesController@myProfile_main')->name('my-profile.main')->middleware('auth');
+Route::get('/profile/my/posts', 'PagesController@myProfile_myPosts')->name('my-profile.posts')->middleware('auth');
+Route::get('/profile/my/followers', 'PagesController@myProfile_Followers')->name('my-profile.followers')->middleware('auth');
+Route::get('/profile/my/following', 'PagesController@myProfile_Following')->name('my-profile.following')->middleware('auth');
+Route::get('/profile/my/brands', 'PagesController@myProfile_myBrands')->name('my-profile.brands')->middleware('auth');

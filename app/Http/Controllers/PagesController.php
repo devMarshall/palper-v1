@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
 use Auth;
 
 class PagesController extends Controller
 {
     //
+
+    public function index()
+    {
+        $user = Auth::user();
+        $brands = Brand::where('owner_id', $user->id)->get();
+
+        return view('home', ['brands' => $brands]);
+    }
 
     public function myProfile_main()
     {
