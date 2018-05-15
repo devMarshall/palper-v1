@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('l_name');
             $table->string('email')->unique();
             $table->string('user_handle')->unique();
-            $table->string('avatar')->default("user.png");
+            $table->string('avatar')->default("http://res.cloudinary.com/devmarshall/image/upload/v1526327003/default-avatar_e2l2xt.png");
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -29,6 +29,10 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <form class="form-inline float-right">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -50,7 +54,7 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" v-pre>
-                                    {{ Auth::user()->user_handle }} <span class="caret"></span>
+                                @ {{ Auth::user()->user_handle }} <span class="caret"></span>
                                 </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -72,7 +76,9 @@
                         @endguest
                     </ul>
                 </div>
+
             </div>
+
         </nav>
 
         <main class="py-4">
