@@ -1,5 +1,7 @@
 <?php
 
+$dbUrl = parse_url(env("CLEARDB_DATABASE_URL"));
+
 return [
 
     /*
@@ -11,7 +13,7 @@ return [
     | to use as your default connection for all database work. Of course
     | you may use many connections at once using the Database library.
     |
-    */
+     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
 
@@ -29,7 +31,7 @@ return [
     | so make sure you have the driver for your particular database of
     | choice installed on your machine before you begin development.
     |
-    */
+     */
 
     'connections' => [
 
@@ -40,18 +42,36 @@ return [
         ],
 
         'mysql' => [
+
+            // -------------Local Dev------------------
+
+            //     'driver' => 'mysql',
+            //     'host' => env('DB_HOST', '127.0.0.1'),
+            //     'port' => env('DB_PORT', '3306'),
+            //     'database' => env('DB_DATABASE', 'forge'),
+            //     'username' => env('DB_USERNAME', 'forge'),
+            //     'password' => env('DB_PASSWORD', ''),
+            //     'unix_socket' => env('DB_SOCKET', ''),
+            //     'charset' => 'utf8mb4',
+            //     'collation' => 'utf8mb4_unicode_ci',
+            //     'prefix' => '',
+            //     'strict' => true,
+            //     'engine' => null,
+
+            // -------------Live Heroku------------------
+
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'host' => isset($dbUrl["host"]) ? $dbUrl["host"] : env("DB_HOST"),
+            'port' => isset($dbUrl["port"]) ? $dbUrl["port"] : env("DB_PORT"),
+            'database' => isset($dbUrl["path"]) ? ltrim($dbUrl["path"], '/') : env("DB_DATABASE"),
+            'username' => isset($dbUrl["user"]) ? $dbUrl["user"] : env("DB_USERNAME"),
+            'password' => isset($dbUrl["pass"]) ? $dbUrl["pass"] : env("DB_PASSWORD"),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
+
         ],
 
         'pgsql' => [
@@ -89,7 +109,7 @@ return [
     | your application. Using this information, we can determine which of
     | the migrations on disk haven't actually been run in the database.
     |
-    */
+     */
 
     'migrations' => 'migrations',
 
@@ -102,7 +122,7 @@ return [
     | provides a richer set of commands than a typical key-value systems
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
-    */
+     */
 
     'redis' => [
 
