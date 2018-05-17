@@ -8,8 +8,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
-                            <img class="card-img-top" src={{ Auth::user()->avatar }} style=" width:80px; margin: 10px; margin-top:
-                            20px;">
+                            <img class="card-img-top" src={{ Auth::user()->avatar }} style=" radius:50%; width:80px; margin:
+                            10px; margin-top: 20px;">
                         </div>
                         <div class="col-md-8">
 
@@ -70,8 +70,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
-                            <img class="card-img-top" src={{ $brand->avatar }} style=" width:80px; margin: 10px; margin-top:
-                            20px;">
+                            <img class="card-img-top" src={{ $brand->avatar }} style="radius:50%; width:80px; margin: 10px;
+                            margin-top: 20px;">
                         </div>
                         <div class="col-md-8">
 
@@ -101,20 +101,28 @@
 
                 <div class="card-body">
                     <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            Add a brand to manage
-                        </div>
-                        <br>
-                        <div class="row justify-content-center">
-                            <a href="#">
-                                <i class="fas fa-plus fa-2x"></i>
-                            </a>
-                        </div>
+                        No brands here
                     </div>
 
                 </div>
 
                 @endif
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center">
+                                Add a brand to manage
+                            </div>
+                            <br>
+                            <div class="row justify-content-center">
+                                <a href="{{ url('/create/brand') }}">
+                                    <i class="fas fa-plus fa-2x"></i>
+                                  </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

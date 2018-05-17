@@ -17,6 +17,11 @@ class PagesController extends Controller
         return view('home', ['brands' => $brands]);
     }
 
+    public function newBrand()
+    {
+        return view('create.brand');
+    }
+
     public function myProfile_main()
     {
         $user = Auth::user();
