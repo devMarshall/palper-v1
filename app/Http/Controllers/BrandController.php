@@ -48,10 +48,6 @@ class BrandController extends Controller
         $brand->save();
 
         return redirect(url('/home'))->with('success', 'Brand Created');
-
-        // return $brand;
-
-        // return 'Brand created';
     }
 
 }

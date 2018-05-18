@@ -20,11 +20,13 @@ Auth::routes();
 Route::get('/home', 'PagesController@index')->name('home')->middleware('auth');
 
 Route::get('/profile/my/main', 'PagesController@myProfile_main')->name('my-profile.main')->middleware('auth');
-Route::get('/profile/my/posts', 'PagesController@myProfile_myPosts')->name('my-profile.posts')->middleware('auth');
-Route::get('/profile/my/followers', 'PagesController@myProfile_Followers')->name('my-profile.followers')->middleware('auth');
+// Route::get('/profile/my/posts', 'PagesController@myProfile_myPosts')->name('my-profile.posts')->middleware('auth');
+// Route::get('/profile/my/followers', 'PagesController@myProfile_Followers')->name('my-profile.followers')->middleware('auth');
 Route::get('/profile/my/following', 'PagesController@myProfile_Following')->name('my-profile.following')->middleware('auth');
 Route::get('/profile/my/brands', 'PagesController@myProfile_myBrands')->name('my-profile.brands')->middleware('auth');
 
 Route::get('/create/brand', 'PagesController@newBrand')->name('create.brand')->middleware('auth');
 
 Route::post('/create/brand', 'BrandController@create')->name('new.brand')->middleware('auth');
+
+Route::get('/test', "PagesController@getFollowedBrandIds" );

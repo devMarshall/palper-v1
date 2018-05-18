@@ -8,8 +8,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
-                            <img class="card-img-top" src={{ Auth::user()->avatar }} style=" radius:50%; width:80px; margin:
-                            10px; margin-top: 20px;">
+                            <img class="card-img-top" src={{ Auth::user()->avatar }} style="border-radius:50%; width:80px;
+                            margin: 10px; margin-top: 20px;">
                         </div>
                         <div class="col-md-8">
 
@@ -59,39 +59,39 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="card">
                 <div class="card-header">
                     My Brands
                 </div>
 
-                @if(sizeof($brands)!==0) @foreach ($brands as $brand)
+                @if(sizeof($managed_brands)!==0) @foreach ($managed_brands as $managed_brand)
 
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
-                            <img class="card-img-top" src={{ $brand->avatar }} style="radius:50%; width:80px; margin: 10px;
-                            margin-top: 20px;">
+                            <img class="card-img-top" src={{ $managed_brand->avatar }} style="border-radius:50%; width:80px;
+                            height:80px; margin: 0px; margin-top: 20px; position:absolute;">
                         </div>
                         <div class="col-md-8">
 
-                            <div style="margin-top: 17%; margin-left:0%;">
+                            <div style="margin-top: 17%; margin-left:12%;">
 
-                                <a href="#"><b>{{ $brand->name }}</b></a><br>
-                                <a href="#">{{$brand->email}}</a>
+                                <a href="#"><b>{{ $managed_brand->name }}</b></a><br>
+                                <a href="#" style="font-size: 13px;">{{$managed_brand->email}}</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" style="margin-top:10%;">
                     <div class="container-fluid">
                         <div class="row justify-content-center">
                             <div class="col col-sm-6">
-                                <b>Pals</b><br> {{$brand->followers}}
+                                <b>Pals</b><br> {{$managed_brand->followers}}
                             </div>
                             <div class="col col-sm-6">
-                                <b>Score</b><br> {{$brand->score}}
+                                <b>Score</b><br> {{$managed_brand->score}}
                             </div>
                         </div>
                     </div>
@@ -106,21 +106,23 @@
 
                 </div>
 
-                @endif
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="container-fluid">
-                            <div class="row justify-content-center">
-                                Add a brand to manage
-                            </div>
-                            <br>
-                            <div class="row justify-content-center">
-                                <a href="{{ url('/create/brand') }}">
+            </div>
+        </div>
+        @endif
+
+
+        <div class="card">
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        Add a brand to manage
+                    </div>
+                    <br>
+                    <div class="row justify-content-center">
+                        <a href="{{ url('/create/brand') }}">
                                     <i class="fas fa-plus fa-2x"></i>
                                   </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
