@@ -31,7 +31,6 @@
                             {{Form::label('title','Brand Description')}} {{Form::textarea('description','',['class'=>'form-control', 'placeholder'=>'Description'])}}
                         </div>
 
-
                         <div class="form-group">
                             {{Form::label('title','Brand Avatar (Optional)')}} {{Form::file('avatar', ['type'=>'file','class'=>'form-control'])}}
                         </div>
@@ -42,7 +41,6 @@
                                 founded_on.max = new Date().toISOString().split("T")[0];
                             </script>
                         </div>
-
 
                         <div class='form-group row'>
                             {{Form::label('title','Slogan/Tagline (Optional)')}} {{Form::text('slogan','',['class'=>'form-control', 'placeholder'=>'Slogan'])}}

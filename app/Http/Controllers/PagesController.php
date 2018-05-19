@@ -27,7 +27,16 @@ class PagesController extends Controller
     public function myProfile_main()
     {
         $user = Auth::user();
-        return view('profile.main', compact($user));
+        $user->password = null;
+
+        return view('profile.main', ['user' => $user]);
+    }
+
+    public function myProfile_main_edit()
+    {
+        $user = Auth::user();
+
+        return view('edit.myprofile', ['user' => $user]);
     }
 
     public function myProfile_myPosts()
