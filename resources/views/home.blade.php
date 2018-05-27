@@ -48,16 +48,19 @@
         </div>
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                    @endif You are logged in!
-                </div>
+                <div class="card-header">My Feed</div>
             </div>
+
+            @if (sizeof($posts)!=0) @foreach ($posts as $post)
+
+            <div class="card">
+                <div class="card-footer">{{$post->brand_name}}</div>
+            </div>
+            @endforeach @else
+            <p>No feed here, pal up with brands to fill up your feed</p>
+            @endif
+
+            <div class="card"></div>
         </div>
         <div class="col-md-2">
             <div class="card">
@@ -106,27 +109,24 @@
 
                 </div>
 
-
-            </div>
-        </div>
-        @endif
-
-
-        <div class="card">
-            <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        Add a brand to manage
-                    </div>
-                    <br>
-                    <div class="row justify-content-center">
-                        <a href="{{ url('/create/brand') }}">
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            Add a brand to manage
+                        </div>
+                        <br>
+                        <div class="row justify-content-center">
+                            <a href="{{ url('/create/brand') }}">
                                     <i class="fas fa-plus fa-2x"></i>
                                   </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        @endif
+
     </div>
 
 </div>

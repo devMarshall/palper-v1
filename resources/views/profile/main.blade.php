@@ -1,8 +1,6 @@
 @extends('layouts.profile') 
 @section('content-profile')
 
-<h3>Main view</h3>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col col-sm-4">
@@ -10,7 +8,8 @@
             <div class="card">
 
                 <div class="card-header">
-                    <img src="{{$user->avatar}}" alt="my_avatar">
+                    <img class="card-img-top" src={{ Auth::user()->avatar }} style="border-radius:50%; width:80px; margin:
+                    10px; margin-top: 20px;">
                 </div>
 
                 <div class="card-body">
@@ -51,6 +50,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 

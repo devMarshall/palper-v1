@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\follower;
+use App\Post;
 use App\User;
 use Auth;
 
 class PagesController extends Controller
 {
-    //
+    //---------------Route Functions------------------------
 
     public function index()
     {
         $user = Auth::user();
         $managed_brands = Brand::where('owner_id', $user->id)->get();
+        $feed = $this->getPosts($user->id);
 
-        return view('home', ['managed_brands' => $managed_brands]);
+        return view('home', ['managed_brands' => $managed_brands, 'posts' => $feed]);
     }
 
     public function newBrand()
@@ -61,16 +63,10 @@ class PagesController extends Controller
         if (sizeof($followed_brands) != 0) {
 
             for ($i = 0; $i < sizeof($followed_brands); $i++) {
-
                 $brand = Brand::where('id', $followed_brands[$i]->brand_id)->first();
-
                 $brands[$i] = $brand;
             }
-
         }
-
-        // return $brands;
-
         return view('profile.following', ['brands' => $brands]);
     }
 
@@ -103,14 +99,7 @@ class PagesController extends Controller
                 $users[$i] = $user;
             }
         }
-
         return $users;
-    }
-
-    public function getFollowedBrandIds($user_id)
-    {
-        $followed_brandsIds = follower::where('follower_id', $user_id)->pluck('brand_id');
-        return $followed_brandsIds;
     }
 
     public function getBrands($brandIds)
@@ -123,8 +112,13 @@ class PagesController extends Controller
                 $brands[$i] = $brand;
             }
         }
-
         return $brands;
+    }
+
+    public function getManagedBrands($user_id)
+    {
+        $managed_brands = Brand::where('owner_id', $user_id)->get();
+        return $managed_brands;
     }
 
     public function getFollowerCount($brand_id)
@@ -133,12 +127,37 @@ class PagesController extends Controller
         return $followerCount;
     }
 
-    public function getFeed($user_id)
+    public function getFollowedBrandIds($user_id)
     {
-        $brandIds = getFollowedBrandIds($user_id);
+        $followed_brandsIds = follower::where('follower_id', $user_id)->pluck('brand_id');
+        return $followed_brandsIds;
+    }
 
-        $feed = Posts::whereIn('brand_id', $brandIds)->latest->get();
+    public function getFollowedBrands($user_id)
+    {
+        $followed_brands = follower::where('follower_id', $user_id)->get();
+        return $followed_brands;
+    }
 
+    public function getPosts($user_id)
+    {
+        $followed_brands = $this->getFollowedBrands($user_id);
+        $brandIds = $this->getFollowedBrandIds($user_id);
+        $feed_data = Post::whereIn('brand_id', $brandIds)->latest()->get();
+
+        $feed = [];
+
+        for ($i = 0; $i < sizeof($feed_data); $i++) {
+            $brand_id = $feed_data[i]->brand_id;
+            for ($j = 0; $j < $followed_brands; $j++) {
+                if ($followed_brands[j]->id == $brand_id) {
+                    $feed_data[i]->brand_name = $followed_brands[j]->name;
+                    continue;
+                }
+            }
+            array_push($feed, $feed_data[i]);
+        }
+        return $feed;
     }
 
 }
