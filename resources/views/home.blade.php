@@ -47,20 +47,63 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">My Feed</div>
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">My Feed</div>
+                </div>
+
+                @if (sizeof($posts)!=0) @foreach ($posts as $post)
+
+                <div class="container-fluid" style="margin-top: 10px;">
+                    <div class="card text-white bg-dark">
+                        @if ($post->img !== NULL)
+
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <img src={{$post->img}} style="width: 70%; height:auto;">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="d-flex justify-content-start">
+                                            <p>{{$post->text}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @else
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center">
+                                <p>{{$post->text}}</p>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="card-footer">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{$post->brand_name}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="d-flex justify-content-end">
+                                            <i class="fas fa-heart"></i>
+                                            <i class="fas fa-comment"></i>
+                                            <i class="fas fa-paper-plane"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach @else
+                <p>No feed here, pal up with brands to fill up your feed</p>
+                @endif
+
             </div>
 
-            @if (sizeof($posts)!=0) @foreach ($posts as $post)
-
-            <div class="card">
-                <div class="card-footer">{{$post->brand_name}}</div>
-            </div>
-            @endforeach @else
-            <p>No feed here, pal up with brands to fill up your feed</p>
-            @endif
-
-            <div class="card"></div>
         </div>
         <div class="col-md-2">
             <div class="card">
@@ -98,9 +141,70 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="container">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newpost_modal">
+                            New Post 
+                        </button>
+                    </div>
+
                 </div>
 
-                @endforeach @else
+
+                @endforeach
+
+                <!-- Modal -->
+                <div class="modal fade" id="newpost_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{$managed_brand->name}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="card">
+                                        {!! Form::open(['route'=>['create.post'],'method'=>'POST', 'files' => true]) !!}
+                                        <div class="card-body">
+
+
+                                            {{Form::hidden('brand_id', $managed_brand->id)}}
+
+                                            <div class='form-group'>
+                                                {{Form::label('title','Post text')}} {{Form::text('text','',['class'=>'form-control', 'placeholder'=>'Max text of 255 words'])}}
+                                            </div>
+                                            <div class='form-group'>
+                                                {{Form::file('img', ['type'=>'file','class'=>'form-control'])}}
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="container">
+                                                <div class="row content-justify-center">
+                                                    <div class="float-right col-sm-6">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    <div class="float-right col-sm-6">
+                                                        {{Form::submit('Submit', ['class'=>'btn btn-primary'])}} {!! Form::close() !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @else
 
                 <div class="card-body">
                     <div class="container-fluid">

@@ -21,7 +21,7 @@ class CreateBrandsTable extends Migration
             $table->string('slogan')->nullable($value = true);
             $table->string('email')->nullable($value = true);
             $table->string('description');
-            $table->string('avatar')->default("http://res.cloudinary.com/devmarshall/image/upload/c_limit,h_100,w_150/v1526327003/default-avatar_brand_sh1gzz.png");
+            $table->string('avatar')->default("http://res.cloudinary.com/devmarshall/image/upload/c_scale,q_100,w_100/v1527594622/default/default-avatar_brand.png");
             $table->float('score')->default(0.00);
             $table->string('category_id')->nullable($value = true);
             $table->timestamps();

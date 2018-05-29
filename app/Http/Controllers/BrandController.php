@@ -50,4 +50,9 @@ class BrandController extends Controller
         return redirect(url('/home'))->with('success', 'Brand Created');
     }
 
+    public function delete($brand_id)
+    {
+        
+    }
+
 }

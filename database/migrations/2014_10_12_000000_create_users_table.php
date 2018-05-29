@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('l_name');
             $table->string('email')->unique();
             $table->string('user_handle')->unique();
-            $table->string('avatar')->default("http://res.cloudinary.com/devmarshall/image/upload/v1526327003/default-avatar_e2l2xt.png");
+            $table->string('avatar')->default("http://res.cloudinary.com/devmarshall/image/upload/c_scale,q_auto:best,w_100/v1527594622/default/default-avatar_user.png");
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

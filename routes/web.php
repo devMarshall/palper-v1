@@ -32,3 +32,7 @@ Route::get('/create/brand', 'PagesController@newBrand')->name('create.brand')->m
 Route::post('/create/brand', 'BrandController@create')->name('new.brand')->middleware('auth');
 
 Route::post('/edit/user', 'UserController@updateProfile')->name('edit.profile')->middleware('auth');
+
+Route::post('/create/post', 'PostsController@create')->name('create.post')->middleware('auth');
+
+Route::get('/feed', 'PagesController@getFeed');

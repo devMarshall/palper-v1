@@ -50,17 +50,15 @@ class UserController extends Controller
             'f_name' => 'required|unique:brands|string|max:255',
             'l_name' => 'required|string|max:255',
             'user_handle' => 'required|string|max:255|unique:users',
+            'avatar' => 'mimes:jpeg,bmp,jpg,png|between:1, 6000',
         ]);
 
         $user_id = Auth::user()->id;
         $user = User::where('id', $user_id)->first();
 
         if ($request->file('avatar') !== null) {
-            $avatar = $request->file('avatar')->getRealPath();
-            $cloudinaryOptions = ['upload_preset' => 'zh5zmnzn'];
-            list($width, $height) = getimagesize($avatar);
-            Cloudder::upload($avatar, null, $cloudinaryOptions);
-            $user->avatar = Cloudder::secureShow(Cloudder::getPublicId(), ["width" => $width, "height" => $height]);
+            $cloudinaryOptions = ['upload_preset' => 'doz0wmeb'];
+            $user->avatar = $this->uploadImg($request->file('avatar'), $cloudinaryOptions);
         }
 
         $user->f_name = $request->input('f_name');
@@ -70,7 +68,15 @@ class UserController extends Controller
         $user->save();
 
         return redirect(url('/profile/my/main/edit'))->with('success', 'Brand Created');
+    }
 
+    private function uploadImg($img, $options)
+    {
+        $img_src = $img->getRealpath();
+        list($width, $height) = getimagesize($img_src);
+        Cloudder::upload($img_src, null, $options);
+        $url = Cloudder::secureShow(Cloudder::getPublicId(), ["width" => $width, "height" => $height]);
+        return $url;
     }
 
 }
