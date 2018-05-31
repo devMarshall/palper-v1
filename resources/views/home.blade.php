@@ -88,9 +88,9 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="d-flex justify-content-end">
-                                            <i class="fas fa-heart"></i>
-                                            <i class="fas fa-comment"></i>
-                                            <i class="fas fa-paper-plane"></i>
+                                            <i class="fas fa-heart" style="padding: 5px;"></i>
+                                            <i class="fas fa-comment" style="padding: 5px;"></i>
+                                            <i class="fas fa-paper-plane" style="padding: 5px;"></i>
                                         </div>
                                     </div>
                                 </div>

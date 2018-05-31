@@ -144,7 +144,8 @@ class PagesController extends Controller
     private function getFollowedBrands($user_id)
     {
         $followed_brands = [];
-        $followed_brands = follower::where('follower_id', $user_id)->get();
+        $followed_brandIds = $this->getFollowedBrandIds($user_id);
+        $followed_brands = Brand::whereIn('id', $followed_brandIds)->get();
         return $followed_brands;
     }
 
@@ -172,16 +173,19 @@ class PagesController extends Controller
 
     public function getFeed($user_id)
     {
+        // $user_id = Auth::user()->id;
 
         $followed_brands = $this->getFollowedBrands($user_id);
         $managed_brands = $this->getManagedBrands($user_id);
         $brands = $this->mergeArr($managed_brands, $followed_brands);
 
+        unset($followed_brandIds, $managed_brandIds);
+
         $followed_brandIds = $this->getFollowedBrandIds($user_id);
         $managed_brandIds = $this->getManagedBrandIds($user_id);
         $brandIds = $this->mergeArr($followed_brandIds, $managed_brandIds);
 
-        unset($followed_brandIds, $managed_brandIds, $followed_brands, $managed_brands);
+        unset($followed_brands, $managed_brands);
 
         $feed_data = Post::whereIn('brand_id', $brandIds)->latest()->get();
 
