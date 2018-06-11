@@ -16,9 +16,10 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('brand_id');
-            $table->string('text')->nullable($value = false);
+            $table->string('text');
             $table->string('img')->nullable($value = true);
             $table->integer('claps')->default(0);
+            $table->string('hash');
             $table->timestamps();
         });
     }

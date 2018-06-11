@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Cloudder;
 use App\Post;
+use Auth;
+use Carbon\Carbon;
+use Cloudder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PostsController extends Controller
 {
@@ -12,7 +15,6 @@ class PostsController extends Controller
 
     public function create(Request $request)
     {
-
 
         $this->validate($request, [
             'brand_id' => 'required|integer:unsigned',
@@ -24,6 +26,12 @@ class PostsController extends Controller
 
         $post->brand_id = $request->input('brand_id');
         $post->text = $request->input('text');
+        $time = Carbon::now()->toDateTimeString();
+        $Uid = Auth::user()->id;
+        $hash = $request->input('brand_id') . $time . $Uid;
+        $post->hash = Hash::make($hash, [
+            'rounds' => 12,
+        ]);
 
         if ($request->file('img') !== null) {
             $cloudinaryOptions = ['upload_preset' => 'zxuygtly'];

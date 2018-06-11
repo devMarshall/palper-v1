@@ -17,22 +17,28 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'PagesController@index')->name('home')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
 
-Route::get('/profile/my/main', 'PagesController@myProfile_main')->name('my-profile.main')->middleware('auth');
-Route::get('/profile/my/main/edit', 'PagesController@myProfile_main_edit')->name('my-profile.main.edit')->middleware('auth');
+    Route::get('/home', 'PagesController@index')->name('home');
 
-// Route::get('/profile/my/posts', 'PagesController@myProfile_myPosts')->name('my-profile.posts')->middleware('auth');
-// Route::get('/profile/my/followers', 'PagesController@myProfile_Followers')->name('my-profile.followers')->middleware('auth');
-Route::get('/profile/my/following', 'PagesController@myProfile_Following')->name('my-profile.following')->middleware('auth');
-Route::get('/profile/my/brands', 'PagesController@myProfile_myBrands')->name('my-profile.brands')->middleware('auth');
+    Route::get('/channel/{post_hash}', 'PagesController@home_Channel')->name('channel');
 
-Route::get('/create/brand', 'PagesController@newBrand')->name('create.brand')->middleware('auth');
+    Route::get('/profile/my/main', 'PagesController@myProfile_main')->name('my-profile.main');
+    Route::get('/profile/my/main/edit', 'PagesController@myProfile_main_edit')->name('my-profile.main.edit');
 
-Route::post('/create/brand', 'BrandController@create')->name('new.brand')->middleware('auth');
+    // Route::get('/profile/my/posts', 'PagesController@myProfile_myPosts')->name('my-profile.posts')->middleware('auth');
+    // Route::get('/profile/my/followers', 'PagesController@myProfile_Followers')->name('my-profile.followers')->middleware('auth');
+    Route::get('/profile/my/following', 'PagesController@myProfile_Following')->name('my-profile.following');
+    Route::get('/profile/my/brands', 'PagesController@myProfile_myBrands')->name('my-profile.brands');
 
-Route::post('/edit/user', 'UserController@updateProfile')->name('edit.profile')->middleware('auth');
+    Route::get('/create/brand', 'PagesController@newBrand')->name('create.brand');
 
-Route::post('/create/post', 'PostsController@create')->name('create.post')->middleware('auth');
+    Route::post('/create/brand', 'BrandController@create')->name('new.brand');
 
-Route::get('/feed', 'PagesController@getFeed');
+    Route::post('/edit/user', 'UserController@updateProfile')->name('edit.profile');
+
+    Route::post('/create/post', 'PostsController@create')->name('create.post');
+
+    Route::get('/feed', 'PagesController@getFeed');
+
+});

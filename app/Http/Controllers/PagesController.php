@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Comment;
 use App\follower;
 use App\Post;
 use App\User;
@@ -15,10 +16,21 @@ class PagesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $managed_brands = Brand::where('owner_id', $user->id)->get();
+        $managed_brands = $this->getManagedBrands($user->id);
         $feed = $this->getFeed($user->id);
 
         return view('home', ['managed_brands' => $managed_brands, 'posts' => $feed]);
+    }
+
+    public function home_Channel($post_hash)
+    {
+        $post = Post::where('hash', $post_hash)->first();
+        $post->brand_name = Brand::where('id', $post->brand_id)->first()->name;
+
+        $comments = Comment::where('post_id', $post->id)->latest()->get();
+        $managed_brands = $this->getManagedBrands(Auth::user()->id);
+
+        return view('channel', ['managed_brands' => $managed_brands, 'post' => $post, 'comments' => $comments]);
     }
 
     public function newBrand()
@@ -116,7 +128,6 @@ class PagesController extends Controller
 
     private function getManagedBrands($user_id)
     {
-        $managed_brandIds = [];
         $managed_brands = Brand::where('owner_id', $user_id)->get();
         return $managed_brands;
     }
@@ -202,6 +213,11 @@ class PagesController extends Controller
             array_push($feed, $feed_data[$i]);
         }
         return $feed;
+    }
+
+    public function getSuggestedBrands($user_id)
+    {
+
     }
 
 }
