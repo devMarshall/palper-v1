@@ -38,7 +38,20 @@
             </div>
         </div>
     </div>
+
+    <div class="container-fluid" style="margin-top: 10px;">
+
+        @foreach ($comments as $comment )
+        <div class="card" style="margin-bottom: 3px;">
+            <div class="card-body">
+                <b>@{{$comment->user_handle}}: </b> {{$comment->text}}
+            </div>
+        </div>
+        @endforeach
+    </div>
+
 </div>
+
 
 
 

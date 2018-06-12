@@ -215,9 +215,25 @@ class PagesController extends Controller
         return $feed;
     }
 
-    public function getSuggestedBrands($user_id)
+    public function getComments($post_id)
     {
+        $comments = Comment::where('post_id', $post->id)->latest()->get();
+        $commenterDetails = [];
+        for ($i = 0; $i < sizeof($comments); $i++) {
+
+//----------------Implement check for already done----------------
+            $detail->user_id = $comments[$i]->owner_id;
+            $detail->user_handle = User::where('id', $comments[$i]->owner_id)->first()->user_handle;
+            array_push($commenterDetails, $detail);
+//----------------Implement check for already done----------------
+
+        }
 
     }
+
+    // public function getSuggestedBrands($user_id)
+    // {
+
+    // }
 
 }

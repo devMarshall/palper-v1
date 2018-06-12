@@ -15,8 +15,9 @@ class CreateClapsTable extends Migration
     {
         Schema::create('claps', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('post_id');
-            $table->integer('clapper_id');
+            $table->boolean('clap_type');
+            $table->integer('post_comment_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

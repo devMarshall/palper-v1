@@ -44,7 +44,6 @@
                             <div class="d-flex justify-content-end">
 
                                 <div>
-
                                     <i class="fas fa-heart fa-sm" style="padding-left: 15px;"></i> 40
                                 </div>
                                 <a href="{{url('/channel/'.$post->hash)}}">
@@ -52,11 +51,6 @@
 
                                     </div>
                                 </a>
-
-                                <div>
-                                    <i class="fas fa-paper-plane fa-sm" style="padding-left: 15px;"></i> 40
-                                </div>
-
 
                             </div>
                         </div>
@@ -70,12 +64,6 @@
     @endif
 
 </div>
-
-
-
-
-
-
 
 
 
