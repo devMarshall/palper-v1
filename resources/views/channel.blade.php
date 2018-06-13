@@ -40,7 +40,6 @@
     </div>
 
     <div class="container-fluid" style="margin-top: 10px;">
-
         @foreach ($comments as $comment )
         <div class="card" style="margin-bottom: 3px;">
             <div class="card-body">
@@ -51,6 +50,8 @@
     </div>
 
 </div>
+
+
 
 
 
