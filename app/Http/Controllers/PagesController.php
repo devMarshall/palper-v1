@@ -68,7 +68,7 @@ class PagesController extends Controller
     public function myProfile_Following()
     {
         $user = Auth::user();
-        $followed_brands = follower::where('follower_id', $user->id)->get();
+        $followed_brands = follower::where('user_id', $user->id)->get();
 
         $brands = [];
 
@@ -148,7 +148,7 @@ class PagesController extends Controller
     public function getFollowedBrandIds($user_id)
     {
         $followed_brandsIds = [];
-        $followed_brandsIds = follower::where('follower_id', $user_id)->pluck('brand_id');
+        $followed_brandsIds = follower::where('user_id', $user_id)->pluck('brand_id');
         return $followed_brandsIds;
     }
 
